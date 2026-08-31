@@ -2,6 +2,8 @@
 
 A currency swap form built with **React 19 + TypeScript + Vite + MUI**. Pick a token to send, an amount, and a token to receive — the converted amount and exchange rate update live, backed by a mocked price API.
 
+[View demo](https://drive.google.com/file/d/1WmGwPoNC2bR_yse1zdlH4xpuuOmL2nHz/view?usp=sharing)
+
 ## guide
 
 ```bash
