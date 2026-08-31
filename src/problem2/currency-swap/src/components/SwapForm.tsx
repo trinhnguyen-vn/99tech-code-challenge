@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
-import type { TokenPrice } from '../types'
+import type { TokenPrice } from '../types/price'
 import { TokenSelect } from './TokenSelect'
 
 const SUBMIT_DELAY_MS = 900
@@ -26,8 +26,8 @@ export function SwapForm({ prices }: SwapFormProps) {
     [prices],
   )
 
-  const [fromCurrency, setFromCurrency] = useState("ETH")
-  const [toCurrency, setToCurrency] = useState("USD")
+  const [fromCurrency, setFromCurrency] = useState('ETH')
+  const [toCurrency, setToCurrency] = useState('USD')
   const [amount, setAmount] = useState('1')
   const [amountTouched, setAmountTouched] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -42,8 +42,14 @@ export function SwapForm({ prices }: SwapFormProps) {
   const rate = toPrice > 0 ? fromPrice / toPrice : 0
   const convertedAmount = isAmountValid ? amountNumber * rate : 0
 
-  const fromOptions = currencies.filter((c) => c !== toCurrency)
-  const toOptions = currencies.filter((c) => c !== fromCurrency)
+  const fromOptions = useMemo(
+    () => currencies.filter((c) => c !== toCurrency),
+    [currencies, toCurrency],
+  )
+  const toOptions = useMemo(
+    () => currencies.filter((c) => c !== fromCurrency),
+    [currencies, fromCurrency],
+  )
 
   const handleFlip = () => {
     setFromCurrency(toCurrency)

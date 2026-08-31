@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import type { TokenPrice } from '../types'
+import type { TokenPrice } from '../types/price'
 import { SwapForm } from './SwapForm'
 
 vi.mock('../utils/tokenIcons', () => ({
@@ -10,7 +10,7 @@ vi.mock('../utils/tokenIcons', () => ({
 
 const prices: TokenPrice[] = [
   { currency: 'ETH', price: 2000, date: '2024-01-01' },
-  { currency: 'USDC', price: 1, date: '2024-01-01' },
+  { currency: 'USD', price: 1, date: '2024-01-01' },
 ]
 
 const numberFormat = new Intl.NumberFormat(undefined, { maximumFractionDigits: 6 })
@@ -20,7 +20,7 @@ describe('SwapForm', () => {
     render(<SwapForm prices={prices} />)
 
     expect(screen.getByDisplayValue(numberFormat.format(2000))).toBeInTheDocument()
-    expect(screen.getByText(`1 ETH ≈ ${numberFormat.format(2000)} USDC`)).toBeInTheDocument()
+    expect(screen.getByText(`1 ETH ≈ ${numberFormat.format(2000)} USD`)).toBeInTheDocument()
   })
 
   it('recomputes the converted amount as the amount changes', async () => {
@@ -54,7 +54,7 @@ describe('SwapForm', () => {
     await user.click(screen.getByRole('button', { name: /swap currencies/i }))
 
     expect(
-      screen.getByText(`1 USDC ≈ ${numberFormat.format(0.0005)} ETH`),
+      screen.getByText(`1 USD ≈ ${numberFormat.format(0.0005)} ETH`),
     ).toBeInTheDocument()
   })
 
@@ -68,7 +68,7 @@ describe('SwapForm', () => {
     expect(submitButton).toBeDisabled()
     expect(
       await screen.findByText(
-        `Swapped 1 ETH → ${numberFormat.format(2000)} USDC`,
+        `Swapped 1 ETH → ${numberFormat.format(2000)} USD`,
         {},
         { timeout: 2000 },
       ),

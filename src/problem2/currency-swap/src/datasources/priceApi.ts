@@ -1,5 +1,5 @@
 import rawPrices from './prices.json'
-import type { TokenPrice } from '../types'
+import type { TokenPrice } from '../types/price'
 
 const FETCH_DELAY_MS = 700
 
