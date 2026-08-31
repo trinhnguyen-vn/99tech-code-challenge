@@ -26,8 +26,8 @@ export function SwapForm({ prices }: SwapFormProps) {
     [prices],
   )
 
-  const [fromCurrency, setFromCurrency] = useState(currencies[0])
-  const [toCurrency, setToCurrency] = useState(currencies[1] ?? currencies[0])
+  const [fromCurrency, setFromCurrency] = useState("ETH")
+  const [toCurrency, setToCurrency] = useState("USD")
   const [amount, setAmount] = useState('1')
   const [amountTouched, setAmountTouched] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -70,7 +70,6 @@ export function SwapForm({ prices }: SwapFormProps) {
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           spacing={2}
-          sx={{ alignItems: { xs: 'stretch', sm: 'flex-end' } }}
         >
           <Stack spacing={1} sx={{ flex: 1, minWidth: 0 }}>
             <Typography variant="caption" color="text.secondary">
